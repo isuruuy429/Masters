@@ -4,6 +4,7 @@ import math
 import random
 
 
+# After deciding the master, it checks the active nodes by checking with the service registry.
 def check_active_nodes(coordinator):
     registered_nodes = []
     response = requests.get('http://127.0.0.1:8500/v1/agent/services')
@@ -20,6 +21,7 @@ def check_active_nodes(coordinator):
     return health_status
 
 
+# This method is used to decide the roles for the other nodes.
 def decide_roles(node_array):
     roles = {}
     for i in range(2):
@@ -40,7 +42,8 @@ def decide_roles(node_array):
     return roles
 
 
-def inform_acceptors(roles, coordinator):
+# This method is used to inform each node about their role.
+def inform_roles(roles, coordinator):
     ports_array = get_ports_of_nodes()
     del ports_array[coordinator]
     combined = {key: (roles[key], ports_array[key]) for key in roles}
@@ -66,6 +69,7 @@ def inform_acceptors(roles, coordinator):
     return combined
 
 
+# this method is used to schedule the range that they should start dividing based on the number.
 def schedule_work_for_proposers(combined):
     count = 0
     range_array_proposers = []
@@ -112,6 +116,7 @@ def get_node_ids(node_name):
     return node_id
 
 
+# This method is used to update the Service Registry after deciding the roles.
 def update_service_registry(roles):
     url = "http://localhost:8500/v1/agent/service/register"
     for each in roles:

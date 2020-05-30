@@ -9,7 +9,7 @@ import sys
 import requests
 from multiprocessing import Value
 from proposer_work import get_acceptors_from_service_registry
-from coordinator_work import check_active_nodes, decide_roles, inform_acceptors, schedule_work_for_proposers, \
+from coordinator_work import check_active_nodes, decide_roles, inform_roles, schedule_work_for_proposers, \
     update_service_registry
 from prime_numbers_detector import is_prime_number
 from acceptor_work import get_learner_from_service_registry
@@ -18,18 +18,23 @@ import logging
 counter = Value('i', 0)
 app = Flask(__name__)
 
+# verifying if port number and node name have been entered as command line arguments.
 port_number = int(sys.argv[1])
 assert port_number
 
 node_name = sys.argv[2]
 assert node_name
 
+# saving the API logs to a file
 logging.basicConfig(filename=f"logs/{node_name}.log", level=logging.INFO)
 
+# an array to capture the messages that receive from acceptors
 learner_result_array = []
 
 node_id = generate_node_id()
 bully = Bully(node_name, node_id, port_number)
+
+# register service in the Service Registry
 service_register_status = register_service(node_name, port_number, node_id)
 
 
@@ -37,6 +42,8 @@ def init(wait=True):
     if service_register_status == 200:
         ports_of_all_nodes = get_ports_of_nodes()
         del ports_of_all_nodes[node_name]
+
+        # exchange node details with each node
         node_details = get_details(ports_of_all_nodes)
 
         if wait:
@@ -44,6 +51,7 @@ def init(wait=True):
             time.sleep(timeout)
             print('timeouting in %s seconds' % timeout)
 
+        # checks if there is an election on going
         election_ready = ready_for_election(ports_of_all_nodes, bully.election, bully.coordinator)
         if election_ready or not wait:
             print('Starting election in: %s' % node_name)
@@ -63,6 +71,7 @@ def init(wait=True):
         print('Service registration is not successful')
 
 
+# this api is used to exchange details with each node
 @app.route('/nodeDetails', methods=['GET'])
 def get_node_details():
     coordinator_bully = bully.coordinator
@@ -72,6 +81,12 @@ def get_node_details():
     port_number_bully = bully.port
     return jsonify({'node_name': node_name_bully, 'node_id': node_id_bully, 'coordinator': coordinator_bully,
                     'election': election_bully, 'port': port_number_bully}), 200
+
+
+'''
+This API checks if the incoming node ID is grater than its own ID. If it is, it executes the init method and 
+sends an OK message to the sender. The execution is handed over to the current node. 
+'''
 
 
 @app.route('/response', methods=['POST'])
@@ -85,6 +100,7 @@ def response_node():
     return jsonify({'Response': 'OK'}), 200
 
 
+# This API is used to announce the coordinator details.
 @app.route('/announce', methods=['POST'])
 def announce_coordinator():
     data = request.get_json()
@@ -92,6 +108,12 @@ def announce_coordinator():
     bully.coordinator = coordinator
     print('Coordinator is %s ' % coordinator)
     return jsonify({'response': 'OK'}), 200
+
+
+'''
+When nodes are sending the election message to the higher nodes, all the requests comes to this proxy. As the init
+method needs to execute only once, it will forward exactly one request to the responseAPI. 
+'''
 
 
 @app.route('/proxy', methods=['POST'])
@@ -108,10 +130,11 @@ def proxy():
     return jsonify({'Response': 'OK'}), 200
 
 
+# after deciding the master, this method has the work that is done by the master node.
 def master_work():
     active_nodes_array = check_active_nodes(node_name)
     roles = decide_roles(active_nodes_array)
-    combined = inform_acceptors(roles, node_name)
+    combined = inform_roles(roles, node_name)
     update_service_registry(combined)
     schedule_work_for_proposers(combined)
     print('roles', roles)
@@ -152,6 +175,13 @@ def proposers():
     return jsonify({'response': 'OK'}), 200
 
 
+'''
+This API receives the messages from proposers. If the message say the number is  prime, it will forward to the
+leaner without re-verifying. If it says the number is not prime, it will verify the number by its own and send
+the message to the learner. 
+'''
+
+
 @app.route('/primeResult', methods=['POST'])
 def prime_result():
     data = request.get_json()
@@ -169,6 +199,12 @@ def prime_result():
         verified_result_string = {"result": verified_result}
         requests.post(url, json=verified_result_string)
     return jsonify({'response': 'OK'}), 200
+
+
+'''
+This API receives a number to be checked along with its range to be divided from the master node. Upon the sent 
+data, the calculation will be done and pass the result to a randomly selected acceptor. 
+'''
 
 
 @app.route('/proposer-schedule', methods=['POST'])
@@ -190,6 +226,7 @@ def proposer_schedule():
     return jsonify({'response': 'OK'}), 200
 
 
+# No node spends idle time, they always checks if the master node is alive in each 60 seconds.
 def check_coordinator_health():
     threading.Timer(60.0, check_coordinator_health).start()
     health = check_health_of_the_service(bully.coordinator)
@@ -198,6 +235,11 @@ def check_coordinator_health():
     else:
         print('Coordinator is alive')
 
+
+'''
+This API receives the messages from acceptors and verify if there are any messages saying that number is not
+prime. If so it will decide that the number is not prime. Else it will decide the number is prime. 
+'''
 
 @app.route('/finalResult', methods=['POST'])
 def final_result():
