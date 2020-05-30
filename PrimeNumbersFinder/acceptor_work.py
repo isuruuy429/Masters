@@ -1,5 +1,4 @@
 import requests
-import random
 
 
 def get_learner_from_service_registry():
@@ -17,9 +16,5 @@ def get_learner_from_service_registry():
                 learner_array[key] = value
     print('learner_array', learner_array)
     for each in learner_array:
-        url = 'http://localhost:%s/sendToLearner' % learner_array[each]
-        print(url)
-
-
-
-#get_learner_from_service_registry()
+        url = 'http://localhost:%s/finalResult' % learner_array[each]
+    return url

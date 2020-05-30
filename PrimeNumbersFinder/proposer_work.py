@@ -19,6 +19,5 @@ def get_acceptors_from_service_registry():
 
     random_acceptor = random.choice(list(acceptor_array.items()))
     url = 'http://localhost:%s/primeResult' % random_acceptor[1]
-    print(url)
     return url
 

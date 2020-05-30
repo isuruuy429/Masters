@@ -77,7 +77,7 @@ def schedule_work_for_proposers(combined):
 
     random_number = read_number_from_file()
     proposer_list_len = len(range_array_proposers)
-    number_range = math.floor(99999 / proposer_list_len)
+    number_range = math.floor(random_number / proposer_list_len)
     start = 2
 
     for each in range(proposer_list_len):
@@ -127,5 +127,4 @@ def update_service_registry(roles):
                 "timeout": "1s"
             }
         }
-        print(role_data)
         requests.put(url, json=role_data)

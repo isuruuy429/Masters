@@ -98,7 +98,6 @@ def get_details(ports_of_all_nodes):
     node_details = []
     for each_node in ports_of_all_nodes:
         url = 'http://localhost:%s/nodeDetails' % ports_of_all_nodes[each_node]
-        print('Syncing with %s' % url)
         data = requests.get(url)
         node_details.append(data.json())
     return node_details

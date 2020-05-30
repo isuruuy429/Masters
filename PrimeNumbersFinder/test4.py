@@ -12,6 +12,8 @@ from proposer_work import get_acceptors_from_service_registry
 from coordinator_work import check_active_nodes, decide_roles, inform_acceptors, schedule_work_for_proposers, \
     update_service_registry
 from prime_numbers_detector import is_prime_number
+from acceptor_work import get_learner_from_service_registry
+import logging
 
 counter = Value('i', 0)
 app = Flask(__name__)
@@ -22,6 +24,10 @@ assert port_number
 node_name = sys.argv[2]
 assert node_name
 
+logging.basicConfig(filename=f"logs/{node_name}.log", level=logging.INFO)
+
+learner_result_array = []
+
 node_id = generate_node_id()
 bully = Bully(node_name, node_id, port_number)
 service_register_status = register_service(node_name, port_number, node_id)
@@ -31,7 +37,6 @@ def init(wait=True):
     if service_register_status == 200:
         ports_of_all_nodes = get_ports_of_nodes()
         del ports_of_all_nodes[node_name]
-        print("Available nodes to start the election: \n %s" % ports_of_all_nodes)
         node_details = get_details(ports_of_all_nodes)
 
         if wait:
@@ -150,7 +155,19 @@ def proposers():
 @app.route('/primeResult', methods=['POST'])
 def prime_result():
     data = request.get_json()
-    print('prime result from proposer', data)
+    print('prime result from proposer', data['primeResult'])
+    url = get_learner_from_service_registry()
+    result = data['primeResult']
+    result_string = {"result": result}
+    print('Sending the result to learner: %s' % url)
+    if 'is a prime number' in result:
+        requests.post(url, json=result_string)
+    else:
+        print("Verifying the result as it says not a prime number......")
+        number = int(result.split()[0])
+        verified_result = is_prime_number(number, 2, number - 1)
+        verified_result_string = {"result": verified_result}
+        requests.post(url, json=verified_result_string)
     return jsonify({'response': 'OK'}), 200
 
 
@@ -180,6 +197,36 @@ def check_coordinator_health():
         init()
     else:
         print('Coordinator is alive')
+
+
+@app.route('/finalResult', methods=['POST'])
+def final_result():
+    data = request.get_json()
+    number = data['result'].split()[0]
+    print('prime result from acceptor', data['result'])
+
+    learner_result_array.append(data['result'])
+    print(learner_result_array)
+
+    count = 0
+    for each_result in learner_result_array:
+        if 'not a prime number' in each_result:
+            count = count + 1
+
+    if count > 0:
+        final = '%s is not prime' % number
+        print(final)
+    else:
+        final = '%s is prime' % number
+        print(final)
+
+    print('-------Final Result-----------')
+    number_of_msgs = len(learner_result_array)
+    print('Number of messages received from acceptors: %s' % number_of_msgs)
+    print('Number of messages that says number is not prime: %s' % count)
+    print(final)
+
+    return jsonify({'response': final}), 200
 
 
 timer_thread1 = threading.Timer(15, init)
