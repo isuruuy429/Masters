@@ -11,6 +11,7 @@ from multiprocessing import Value
 from proposer_work import get_acceptors_from_service_registry
 from coordinator_work import check_active_nodes, decide_roles, inform_acceptors, schedule_work_for_proposers, \
     update_service_registry
+from prime_numbers_detector import is_prime_number
 
 counter = Value('i', 0)
 app = Flask(__name__)
@@ -106,9 +107,10 @@ def master_work():
     active_nodes_array = check_active_nodes(node_name)
     roles = decide_roles(active_nodes_array)
     combined = inform_acceptors(roles, node_name)
+    update_service_registry(combined)
     schedule_work_for_proposers(combined)
     print('roles', roles)
-    update_service_registry(combined)
+
     proposer_count = 0
     for each in roles:
         if roles[each] == 'Proposer':
@@ -148,7 +150,7 @@ def proposers():
 @app.route('/primeResult', methods=['POST'])
 def prime_result():
     data = request.get_json()
-    print('prime result from proposer' , data)
+    print('prime result from proposer', data)
     return jsonify({'response': 'OK'}), 200
 
 
@@ -161,44 +163,14 @@ def proposer_schedule():
     random_number = data['random_number']
 
     print('Checking %s number for prime....' % random_number)
-    if random_number <= 1:
-        return f'{random_number} number'
-    else:
-        print('starting dividing from %s ' % start)
-        for number in range(start, end):
-            print('now dividing from %s' % number)
-            if random_number % number == 0 and random_number != number:
-                print(f"{random_number} is divisible by {number}. {random_number} is not a prime number")
-                result_string = f"{random_number} is divisible by {number}. {random_number} is not a prime number"
-        print(f"{random_number} is a prime number")
-        result_string = f"{random_number} is a prime number"
+    result_string = is_prime_number(random_number, start, end)
 
     data = {"primeResult": result_string}
     print(data)
-    # url_acceptor = get_acceptors_from_service_registry()
-    # print(url_acceptor)
-    # print('Sending the result to a random acceptor %s' % url_acceptor)
-    # requests.post(url_acceptor, json=data)
-
-    try:
-        acceptor_array = {}
-        response = requests.get('http://127.0.0.1:8500/v1/agent/services')
-        nodes = response.json()
-
-        for each in nodes:
-            if nodes[each]['Meta']['Role'] == 'Acceptor':
-                node = nodes[each]['Service']
-                role = nodes[each]['Port']
-                key = node
-                value = role
-                acceptor_array[key] = value
-    except:
-        pass
-    finally:
-        random_acceptor = random.choice(list(acceptor_array.items()))
-        url = 'http://localhost:%s/primeResult' % random_acceptor[1]
-        print(url)
-
+    url_acceptor = get_acceptors_from_service_registry()
+    print('Sending the result to a random acceptor %s' % url_acceptor)
+    requests.post(url_acceptor, json=data)
+    return jsonify({'response': 'OK'}), 200
 
 
 def check_coordinator_health():
