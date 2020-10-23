@@ -1,0 +1,34 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_toast_container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fafcfc"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="349dp"
+        android:layout_height="103dp"
+        android:text="@string/toastText"
+        android:textColor="#420420"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.749" />
+
+    <ImageView
+        android:layout_width="255dp"
+        android:layout_height="331dp"
+        android:src="@drawable/checkweight"
+        app:layout_constraintBottom_toTopOf="@+id/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.718" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

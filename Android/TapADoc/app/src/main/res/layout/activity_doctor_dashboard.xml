@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
+    tools:context=".DoctorDashboard">
+
+
+    <Button
+        android:id="@+id/button_doc_addslot"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:text="Add Slots"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.211" />
+
+    <Button
+        android:id="@+id/doctor_viewslots_btn"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="44dp"
+        android:text="View Free Slots"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_doc_addslot" />
+
+    <Button
+        android:id="@+id/doctor_viewappointments_btn"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="44dp"
+        android:text="View Appointments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_viewslots_btn" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_doctor_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation"
+        app:itemIconTint="@drawable/tab_color"
+        app:itemTextColor="@drawable/tab_color"
+        tools:layout_editor_absoluteX="-37dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

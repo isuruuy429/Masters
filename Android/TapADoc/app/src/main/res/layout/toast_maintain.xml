@@ -1,0 +1,37 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_toast_container_maintain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fafcfc"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/text_maintain"
+        android:layout_width="345dp"
+        android:layout_height="81dp"
+        android:text="@string/toastmaintain"
+        android:textColor="#420420"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.575"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.793" />
+
+    <ImageView
+        android:layout_width="331dp"
+        android:layout_height="383dp"
+        android:layout_marginTop="56dp"
+        android:src="@drawable/maintain"
+        app:layout_constraintBottom_toTopOf="@+id/text_maintain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.569" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

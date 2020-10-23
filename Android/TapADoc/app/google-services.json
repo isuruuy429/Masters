@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "266970453682",
+    "firebase_url": "https://tapadoc-ec7d5.firebaseio.com",
+    "project_id": "tapadoc-ec7d5",
+    "storage_bucket": "tapadoc-ec7d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266970453682:android:2f5260db573d29767f1bab",
+        "android_client_info": {
+          "package_name": "com.isuruuy.tapadoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266970453682-egtkgt97qebpuiknj7m567i8gj496eol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.isuruuy.tapadoc",
+            "certificate_hash": "a56a6fb7d6bce0837dbc2c7ce147ea3e5783d750"
+          }
+        },
+        {
+          "client_id": "266970453682-kji5sansioa0gqcr6dfjth55f6cm6rga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQFKYKOz4m2Lz1SYgE6RlnEOYaSdeTaXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266970453682-kji5sansioa0gqcr6dfjth55f6cm6rga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

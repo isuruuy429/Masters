@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_signin_patient"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:width="550dp"
+        android:text="Sign in "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <Button
+        android:id="@+id/button_register_patient"
+        android:layout_width="217dp"
+        android:layout_height="58dp"
+        android:text="Register"
+        android:background="#0000"
+        android:textColor="#6a0dad"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.679" />
+
+    <EditText
+        android:id="@+id/editText_login_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="350dp"
+        android:ems="10"
+        android:hint="PIN"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.273" />
+
+    <EditText
+        android:id="@+id/editText_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="350dp"
+        android:ems="10"
+        android:hint="email"
+        android:inputType="textEmailAddress"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/editText_login_pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.823" />
+</androidx.constraintlayout.widget.ConstraintLayout>
