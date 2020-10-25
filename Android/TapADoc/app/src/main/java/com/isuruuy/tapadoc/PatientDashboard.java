@@ -68,7 +68,7 @@ public class PatientDashboard extends AppCompatActivity {
                 System.out.println("**** "+ bmi);
                 name = documentSnapshot.getString("name");
 
-                String greetUser = greetUser() + "!!!"+ name+ "How is your day?";
+                String greetUser = greetUser() + " "+ name;
                 greetText.setText(greetUser);
                 greetText.startAnimation(AnimationUtils.loadAnimation(PatientDashboard.this, android.R.anim.slide_in_left));
 
