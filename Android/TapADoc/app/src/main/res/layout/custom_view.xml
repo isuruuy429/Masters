@@ -21,12 +21,13 @@
         app:cardCornerRadius="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/doctor_booknow_cardview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp">
 
             <ImageView
-                android:id="@+id/imageview_display_doc"
+                android:id="@+id/doctor_profilepic_cardview"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +38,7 @@
                 app:layout_constraintVertical_bias="0.304" />
 
             <TextView
-                android:id="@+id/text_title"
+                android:id="@+id/doctor_name_cardview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -49,11 +50,11 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageview_display_doc"
+                app:layout_constraintStart_toEndOf="@+id/doctor_profilepic_cardview"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textDesc"
+                android:id="@+id/doctor_speciality_cardview"
                 android:layout_width="156dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="8dp"
@@ -61,8 +62,19 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.106"
-                app:layout_constraintStart_toEndOf="@+id/imageview_display_doc"
-                app:layout_constraintTop_toBottomOf="@+id/text_title" />
+                app:layout_constraintStart_toEndOf="@+id/doctor_profilepic_cardview"
+                app:layout_constraintTop_toBottomOf="@+id/doctor_name_cardview" />
+
+            <Button
+                android:id="@+id/button_booknow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Book Now"
+                app:layout_constraintBottom_toBottomOf="@+id/doctor_profilepic_cardview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toEndOf="@+id/doctor_profilepic_cardview" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

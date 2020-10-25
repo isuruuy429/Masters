@@ -98,6 +98,8 @@ public class AddSlotsDoctorActivity extends AppCompatActivity {
                     Map<String,Object> slot = new HashMap<>();
                     slot.put("date", date_str);
                     slot.put("time", time_str);
+                    slot.put("id", timeStamp_str);
+                    slot.put("docid", userID);
                     documentReference.set(slot).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

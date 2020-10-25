@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TapADoc">
-        <activity android:name=".RecordProgress"></activity>
+        <activity android:name=".ViewPastPrescriptionsActivity"></activity>
+        <activity android:name=".StartSessionActivity" />
+        <activity android:name=".ViewAppointments" />
+        <activity android:name=".ViewAvailableSlots" />
+        <activity android:name=".RecordProgress" />
         <activity android:name=".AppointmentActivity" />
         <activity android:name=".AddSlotsDoctorActivity" />
         <activity android:name=".DoctorProfile" />
@@ -39,6 +44,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

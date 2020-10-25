@@ -33,10 +33,11 @@ public class PatientDashboard extends AppCompatActivity {
     BottomNavigationView navigationView_dashboard;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
-    String userID, height, weight,bmi, name;
+    String userID, height, weight, name;
     TextView greetText;
     String greetTime;
     Button viewDieticians, recordProgress;
+    String bmi ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +65,14 @@ public class PatientDashboard extends AppCompatActivity {
                 height = documentSnapshot.getString("height");
                 weight = documentSnapshot.getString("weight");
                 bmi = documentSnapshot.getString("bmi");
+                System.out.println("**** "+ bmi);
                 name = documentSnapshot.getString("name");
 
                 String greetUser = greetUser() + "!!!"+ name+ "How is your day?";
                 greetText.setText(greetUser);
                 greetText.startAnimation(AnimationUtils.loadAnimation(PatientDashboard.this, android.R.anim.slide_in_left));
 
-                if(bmi.isEmpty())
+                if(bmi == null)
                 {
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.custom_toast,

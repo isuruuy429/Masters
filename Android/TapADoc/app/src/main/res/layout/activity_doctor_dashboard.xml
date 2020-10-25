@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_light_background"
+    android:background="@drawable/background"
     tools:context=".DoctorDashboard">
 
 
@@ -15,29 +15,22 @@
         android:text="Add Slots"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211" />
-
-    <Button
-        android:id="@+id/doctor_viewslots_btn"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="44dp"
-        android:text="View Free Slots"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_doc_addslot" />
+        app:layout_constraintVertical_bias="0.59" />
 
     <Button
         android:id="@+id/doctor_viewappointments_btn"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="44dp"
         android:text="View Appointments"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_doctor_dashboard"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doctor_viewslots_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/button_doc_addslot"
+        app:layout_constraintVertical_bias="0.132" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_doctor_dashboard"
@@ -48,5 +41,33 @@
         app:itemIconTint="@drawable/tab_color"
         app:itemTextColor="@drawable/tab_color"
         tools:layout_editor_absoluteX="-37dp"/>
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/chicle"
+        android:text="Dashboard"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_doc_addslot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.092" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/button_doc_addslot"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/doctor_default"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.817"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

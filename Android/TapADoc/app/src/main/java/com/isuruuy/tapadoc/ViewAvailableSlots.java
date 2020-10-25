@@ -1,64 +1,61 @@
 package com.isuruuy.tapadoc;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class AppointmentActivity extends AppCompatActivity {
+public class ViewAvailableSlots extends AppCompatActivity {
 
     FirebaseFirestore firestore;
     RecyclerView recyclerView;
-    Adapter adapter;
-    ArrayList<Doctor> doctors;
+    AvailableSlotsAdapter adapter;
+    ArrayList<AvailableSlots> slots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointment);
 
-        recyclerView = findViewById(R.id.recyclerview);
+        Intent i = getIntent();
+        String userid = i.getStringExtra("USERID");
+        System.out.println("From past act:" +userid);
+        setContentView(R.layout.activity_view_available_slots);
+
+        recyclerView = findViewById(R.id.recycleview_slots);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        doctors = new ArrayList<Doctor>();
+        slots = new ArrayList<AvailableSlots>();
 
         firestore = FirebaseFirestore.getInstance();
-        Query query = firestore.collection("users").whereEqualTo("isDoctor", true);
-
+        Query query = firestore.collection("users").document(userid).collection("availableSlots");
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot document : task.getResult()){
-                        Doctor doc = document.toObject(Doctor.class);
-                        doctors.add(doc);
+                        AvailableSlots doc = document.toObject(AvailableSlots.class);
+                        slots.add(doc);
                     }
-                    adapter = new Adapter(AppointmentActivity.this, doctors);
+                    adapter = new AvailableSlotsAdapter(slots,ViewAvailableSlots.this);
                     recyclerView.setAdapter(adapter);
                 }else{
                     Log.d("TAG", "Error getting documents: ", task.getException());
                 }
             }
         });
-
-
-
     }
 }

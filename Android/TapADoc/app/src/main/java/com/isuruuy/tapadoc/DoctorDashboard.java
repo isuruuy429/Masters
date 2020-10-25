@@ -44,13 +44,22 @@ public class DoctorDashboard extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         addSlot = findViewById(R.id.button_doc_addslot);
-        viewAppointments = findViewById(R.id.doctor_viewslots_btn);
-        viewFreeSlots = findViewById(R.id.doctor_viewappointments_btn);
+        viewAppointments = findViewById(R.id.doctor_viewappointments_btn);
+
 
         addSlot.setOnClickListener(view -> {
             Intent intent = new Intent(DoctorDashboard.this, AddSlotsDoctorActivity.class);
             startActivity(intent);
             finish();
+        });
+
+        viewAppointments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DoctorDashboard.this, ViewAppointments.class);
+                startActivity(i);
+                finish();
+            }
         });
 
         navigationView_doctor_dashboard = findViewById(R.id.bottom_navigation_doctor_dashboard);

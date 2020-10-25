@@ -76,12 +76,14 @@
         android:id="@+id/button_register_user"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_register_reconfirmpin" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhone_mobile"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/register_gender"
@@ -92,5 +94,18 @@
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText_register_email" />
+
+    <EditText
+        android:id="@+id/editTextPhone_mobile"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias="0.54"
+        android:hint="Mobile +9477XXXXXXX"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_register_reconfirmpin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

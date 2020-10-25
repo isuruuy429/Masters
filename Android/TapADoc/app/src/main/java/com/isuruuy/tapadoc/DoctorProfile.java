@@ -38,6 +38,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DoctorProfile extends AppCompatActivity {
 
@@ -52,6 +54,7 @@ public class DoctorProfile extends AppCompatActivity {
     TextView name,email, specialities,mobile;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
+    DocumentReference documentReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +112,7 @@ public class DoctorProfile extends AppCompatActivity {
         });
 
         userID = firebaseAuth.getCurrentUser().getUid();
-        DocumentReference documentReference = firestore.collection("users").document(userID);
+        documentReference = firestore.collection("users").document(userID);
         documentReference.addSnapshotListener((documentSnapshot, error) -> {
             name.setText(documentSnapshot.getString("name"));
             email.setText(documentSnapshot.getString("email"));
@@ -184,7 +187,6 @@ public class DoctorProfile extends AppCompatActivity {
                 });
                 builder.setNegativeButton("NO", (dialogInterface, i) -> System.out.println("Clicked NO"));
                 builder.show();
-               //uploadImageToFirebase(imageFileName, contentUri);
             }
 
         }
@@ -199,6 +201,10 @@ public class DoctorProfile extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         Picasso.get().load(uri).into(camera_image_view);
+                        System.out.println("URL is : "+uri);
+                        Map<String,Object> user = new HashMap<>();
+                        user.put("profilePicture", uri.toString());
+                        documentReference.update(user);
                     }
 
                 });

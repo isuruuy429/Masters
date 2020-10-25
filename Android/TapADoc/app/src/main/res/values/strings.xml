@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TapADoc</string>
-    <string name="toastText">Seems like you have not checked your BMI. Let us enter your weight and height in the Profile Section below.</string>
+    <string name="toastText">Let us enter your weight and height in the Profile Section below.</string>
     <string name="toastOverweight">Let us seek some diet plans. Keep motivated!!! </string>
     <string name="toastmaintain">Good Job!! Search diet plans to keep your weight maintained. </string>
 </resources>

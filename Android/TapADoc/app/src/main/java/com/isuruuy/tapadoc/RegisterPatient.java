@@ -32,9 +32,9 @@ import java.util.Map;
 public class RegisterPatient extends AppCompatActivity implements View.OnClickListener {
 
     DatePickerDialog picker;
-    EditText dateOfBirth, patientName, email, pin, reconfirmPin;
+    EditText dateOfBirth, patientName, email, pin, reconfirmPin, mobile;
     Button register;
-    String dateOfBirth_str, patientName_str, email_str, pin_str, reconfirmPin_str,gender_str;
+    String dateOfBirth_str, patientName_str, email_str, pin_str, reconfirmPin_str,gender_str, mobile_str;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
     String userID;
@@ -60,6 +60,7 @@ public class RegisterPatient extends AppCompatActivity implements View.OnClickLi
         email = findViewById(R.id.editTextText_register_email);
         pin = findViewById(R.id.editText_register_pin);
         reconfirmPin = findViewById(R.id.editText_register_reconfirmpin);
+        mobile = findViewById(R.id.editTextPhone_mobile);
 
         register = findViewById(R.id.button_register_user);
         register.setOnClickListener(this);
@@ -95,6 +96,7 @@ public class RegisterPatient extends AppCompatActivity implements View.OnClickLi
             pin_str = pin.getText().toString();
             reconfirmPin_str = reconfirmPin.getText().toString();
             gender_str = spinner_gender.getSelectedItem().toString().trim();
+            mobile_str = mobile.getText().toString().trim();
 
             if(validate_user_registration_inputs())
             {
@@ -106,11 +108,13 @@ public class RegisterPatient extends AppCompatActivity implements View.OnClickLi
                             userID = firebaseAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = firestore.collection("users").document(userID);
                             Map<String,Object> user = new HashMap<>();
+                            user.put("id", userID);
                             user.put("name", patientName_str);
                             user.put("email", email_str);
                             user.put("dob", dateOfBirth_str);
                             user.put("gender", gender_str);
                             user.put("isDoctor",false);
+                            user.put("mobile",mobile_str);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
