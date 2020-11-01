@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,11 +40,16 @@ public class AddSlotsDoctorActivity extends AppCompatActivity {
     EditText timetv;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
+    BottomNavigationView bottomNavigation_addslots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_slots_doctor);
+
+        try{
+            this.getSupportActionBar().hide();
+        }catch (NullPointerException e){}
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -51,6 +58,7 @@ public class AddSlotsDoctorActivity extends AppCompatActivity {
         dateSlot = findViewById(R.id.addslot_date);
         timePicker = findViewById(R.id.timepicker);
         timetv = findViewById(R.id.invisibleTimetext);
+        bottomNavigation_addslots = findViewById(R.id.bottom_navigation_doctor_addslot);
 
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
@@ -114,10 +122,28 @@ public class AddSlotsDoctorActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    public void addSlot(){
-
+        bottomNavigation_addslots.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_logout:
+                        firebaseAuth.signOut();
+                        startActivity(new Intent(getApplicationContext(), Login.class));
+                        finish();
+                        return true;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(getApplicationContext(), DoctorProfile.class));
+                        finish();
+                        return true;
+                    case R.id.nav_home:
+                        startActivity(new Intent(getApplicationContext(), DoctorDashboard.class));
+                        finish();
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
 }

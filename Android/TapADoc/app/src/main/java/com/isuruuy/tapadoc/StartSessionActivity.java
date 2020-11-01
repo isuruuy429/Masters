@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -36,7 +38,7 @@ public class StartSessionActivity extends AppCompatActivity {
     EditText prescription;
     Button completeSession, callUser, old_prescriptions, submitPrescription;
     DocumentReference documentReference;
-    DocumentReference addMedicine, removeSession;
+    DocumentReference addMedicine;
     FirebaseFirestore firestore;
     FirebaseAuth firebaseAuth;
 
@@ -44,6 +46,10 @@ public class StartSessionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_session);
+
+        try{
+            this.getSupportActionBar().hide();
+        }catch (NullPointerException e){}
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -125,17 +131,31 @@ public class StartSessionActivity extends AppCompatActivity {
         completeSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firestore.collection("users").document(doctorID).collection("bookedSlots").document(slotID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(StartSessionActivity.this, "Session Completed! " , Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(StartSessionActivity.this, "Error occurred. Session could not complete! " , Toast.LENGTH_SHORT).show();
-                    }
+
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(StartSessionActivity.this);
+                builder.setTitle("Confirmation");
+                builder.setMessage("Do you want to complete the session?");
+                builder.setIcon(R.drawable.ic_done);
+                builder.setPositiveButton("YES", (dialogInterface, i) -> {
+
+                    //yes button clicked
+                    firestore.collection("users").document(doctorID).collection("bookedSlots").document(slotID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(StartSessionActivity.this, "Session Completed! " , Toast.LENGTH_SHORT).show();
+                            completeSession.setBackgroundColor(Color.RED);
+                            completeSession.setClickable(false);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(StartSessionActivity.this, "Error occurred. Session could not complete! " , Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 });
+                builder.setNegativeButton("NO", (dialogInterface, i) -> System.out.println("Clicked NO"));
+                builder.show();
             }
         });
     }

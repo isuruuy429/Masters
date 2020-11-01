@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/purple"
     android:layout_height="match_parent">
 
     <Button
@@ -13,24 +14,25 @@
         android:text="Sign in "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.396" />
+        app:layout_constraintVertical_bias="0.516" />
 
     <Button
         android:id="@+id/button_register_patient"
-        android:layout_width="217dp"
-        android:layout_height="58dp"
-        android:text="Register"
+        android:layout_width="349dp"
+        android:layout_height="44dp"
         android:background="#0000"
+        android:text="No account yet? Sign up."
+        android:textAllCaps="false"
         android:textColor="#6a0dad"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.679" />
+        app:layout_constraintVertical_bias="0.604" />
 
     <EditText
         android:id="@+id/editText_login_pin"
@@ -42,10 +44,10 @@
         android:inputType="numberPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.273" />
+        app:layout_constraintVertical_bias="0.424" />
 
     <EditText
         android:id="@+id/editText_username"
@@ -58,8 +60,9 @@
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/editText_login_pin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.823" />
+        app:layout_constraintVertical_bias="0.933" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,6 +40,10 @@ public class RecordProgress extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_progress);
 
+        try{
+            this.getSupportActionBar().hide();
+        }catch (NullPointerException e){}
+
         buttonProgressWeightAdd = findViewById(R.id.progress_submit_weight_button);
         buttonProgressWeightView = findViewById(R.id.view_progress_button);
         editTextProgressWeight = findViewById(R.id.progress_weight);

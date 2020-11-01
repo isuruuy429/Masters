@@ -45,6 +45,10 @@ public class PatientProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_profile);
 
+        try{
+            this.getSupportActionBar().hide();
+        }catch (NullPointerException e){}
+
         save_data = findViewById(R.id.profile_save_button);
 
         String userID;

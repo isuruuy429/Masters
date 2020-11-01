@@ -44,6 +44,10 @@ public class PatientDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_dashboard);
 
+        try{
+            this.getSupportActionBar().hide();
+        }catch (NullPointerException e){}
+
         greetText = findViewById(R.id.textView_greet);
 
         recordProgress = findViewById(R.id.record_progress_patient_dashbaord_button);
@@ -145,12 +149,12 @@ public class PatientDashboard extends AppCompatActivity {
     public String greetUser(){
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-
+        System.out.println(timeOfDay);
         if(timeOfDay >= 0 && timeOfDay < 12){
             greetTime=  "Good Morning ";
         }else if(timeOfDay >= 12 && timeOfDay < 16){
             greetTime=  "Good Afternoon ";
-        }else if(timeOfDay >= 16 && timeOfDay < 21){
+        }else if(timeOfDay >= 16 && timeOfDay <= 23){
             greetTime=  "Good Evening ";
         }
         return greetTime;

@@ -12,13 +12,12 @@
         android:id="@+id/button_view_dieticians"
         android:layout_width="246dp"
         android:layout_height="47dp"
+        android:layout_marginTop="28dp"
         android:text="View Dieticians"
-        app:layout_constraintBottom_toTopOf="@+id/record_progress_patient_dashbaord_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_dashboard"
@@ -48,13 +47,13 @@
         android:id="@+id/record_progress_patient_dashbaord_button"
         android:layout_width="246dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="76dp"
         android:text="Record Progress"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_dashboard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_view_dieticians" />
+        app:layout_constraintTop_toBottomOf="@+id/button_view_dieticians"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"

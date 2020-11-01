@@ -46,6 +46,10 @@ public class RegisterPatient extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_patient);
 
+        try{
+            this.getSupportActionBar().hide();
+        }catch (NullPointerException e){}
+
         spinner_gender = findViewById(R.id.register_gender);
         populateGenderValues();
 
@@ -174,6 +178,11 @@ public class RegisterPatient extends AppCompatActivity implements View.OnClickLi
             reconfirmPin.setError("Check PIN values");
             pin.setText("");
             reconfirmPin.setText("");
+            return false;
+        }
+         else  if(mobile_str.trim().length() == 0 ){
+            mobile.requestFocus();
+            mobile.setError("Enter Mobile Number");
             return false;
         }
         else

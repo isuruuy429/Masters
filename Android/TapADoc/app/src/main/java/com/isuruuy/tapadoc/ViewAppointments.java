@@ -33,6 +33,10 @@ public class ViewAppointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_appointments);
 
+        try{
+            this.getSupportActionBar().hide();
+        }catch (NullPointerException e){}
+
         recyclerView = findViewById(R.id.view_booked_appointments);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

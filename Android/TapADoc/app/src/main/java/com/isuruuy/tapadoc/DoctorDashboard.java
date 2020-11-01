@@ -32,14 +32,16 @@ public class DoctorDashboard extends AppCompatActivity {
 
     BottomNavigationView navigationView_doctor_dashboard;
     FirebaseAuth firebaseAuth;
-    FirebaseFirestore firestore;
-    String userID;
-    Button addSlot, viewAppointments, viewFreeSlots;
+    Button addSlot, viewAppointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_dashboard);
+
+        try{
+            this.getSupportActionBar().hide();
+        }catch (NullPointerException e){}
 
         firebaseAuth = FirebaseAuth.getInstance();
 

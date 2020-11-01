@@ -9,81 +9,71 @@
     <EditText
         android:id="@+id/addslot_date"
         android:layout_width="267dp"
-        android:textAlignment="center"
         android:layout_height="54dp"
         android:background="#f6f8f9"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="8dp"
         android:ems="10"
         android:focusable="false"
+        android:hint="Enter Date"
         android:inputType="date|text"
-        app:layout_constraintBottom_toTopOf="@+id/invisibleTimetext"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timepicker" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="5dp"
-        android:text="Add Slot"
-        app:layout_constraintBottom_toTopOf="@+id/timepicker"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.599" />
 
     <TimePicker
         android:id="@+id/timepicker"
-        android:layout_width="460dp"
-        android:layout_height="375dp"
+        android:layout_width="411dp"
+        android:layout_height="357dp"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/addslot_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.195" />
 
     <Button
         android:id="@+id/add_button_addslot_popup"
         android:layout_width="275dp"
         android:layout_height="55dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
         android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/invisibleTimetext" />
+        app:layout_constraintTop_toBottomOf="@+id/invisibleTimetext"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/invisibleTimetext"
         android:layout_width="267dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
         android:background="#f6f8f9"
         android:clickable="false"
         android:cursorVisible="false"
+        android:ems="10"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:textAlignment="center"
-        android:layout_height="52dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
+        android:hint="Enter Time"
         android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/add_button_addslot_popup"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addslot_date" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_doctor_addslot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation"
+        app:itemIconTint="@drawable/tab_color"
+        app:itemTextColor="@drawable/tab_color"
+        tools:layout_editor_absoluteX="-37dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
