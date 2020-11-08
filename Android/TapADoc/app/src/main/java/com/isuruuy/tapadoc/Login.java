@@ -1,6 +1,8 @@
 package com.isuruuy.tapadoc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -41,6 +43,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         try{
             this.getSupportActionBar().hide();
         }catch (NullPointerException e){}
+
+        if (isNetworkAvailable(getApplicationContext())) {
+            ;
+        } else {
+            Toast.makeText(Login.this, "Please check your internet connectivity", Toast.LENGTH_SHORT ).show();
+        }
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -125,5 +133,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         {
             return true;
         }
+    }
+
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

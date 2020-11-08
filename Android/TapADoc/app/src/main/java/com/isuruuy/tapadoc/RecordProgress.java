@@ -1,11 +1,14 @@
 package com.isuruuy.tapadoc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +19,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.type.DateTime;
 import com.isuruuy.tapadoc.data.DBHelper;
 
@@ -34,6 +39,8 @@ public class RecordProgress extends AppCompatActivity {
     LineDataSet lineDataSet;
     LineData lineData;
     LineChart lineChart;
+    BottomNavigationView navigationView_record_progress;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,8 @@ public class RecordProgress extends AppCompatActivity {
         try{
             this.getSupportActionBar().hide();
         }catch (NullPointerException e){}
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         buttonProgressWeightAdd = findViewById(R.id.progress_submit_weight_button);
         buttonProgressWeightView = findViewById(R.id.view_progress_button);
@@ -87,6 +96,7 @@ public class RecordProgress extends AppCompatActivity {
                 while (cursor.moveToNext()){
                     buffer.append("date:" + cursor.getString(1)+ "\n");
                     buffer.append("weight:" + cursor.getString(2)+ "\n");
+                    buffer.append("\n");
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(RecordProgress.this);
@@ -103,6 +113,31 @@ public class RecordProgress extends AppCompatActivity {
                 lineChart.clear();
                 lineChart.setData(lineData);
                 lineChart.invalidate();
+            }
+        });
+
+        navigationView_record_progress = findViewById(R.id.bottom_navigation_record_progress);
+        navigationView_record_progress.setSelectedItemId(R.id.nav_profile);
+        navigationView_record_progress.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_logout:
+                        firebaseAuth.signOut();
+                        startActivity(new Intent(getApplicationContext(), Login.class));
+                        finish();
+                        return true;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(getApplicationContext(), RecordProgress.class));
+                        finish();
+                        return true;
+                    case R.id.nav_home:
+                        startActivity(new Intent(getApplicationContext(), PatientDashboard.class));
+                        finish();
+                        return true;
+                }
+
+                return false;
             }
         });
     }
