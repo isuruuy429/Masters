@@ -64,8 +64,8 @@ def write_files_once_a_day():
 
 
 def writes_to_s3(operation, response_dict):
-    aws_access_key_id = 'AKIA4QZCVOBTR5XPO2UN'
-    aws_secret_access_key = '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'
+    aws_access_key_id = ''
+    aws_secret_access_key = ''
 
     s3 = boto3.resource('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
     obj = s3.Object('isuruuy-deviq', '{}.json'.format(operation))
