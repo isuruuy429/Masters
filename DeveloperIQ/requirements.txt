@@ -5,3 +5,10 @@ requests==2.25.1
 urllib3==1.26.4
 Werkzeug==1.0.1
 wheel==0.36.2
+
+zlib~=1.2.11
+openssl~=1.1.1k
+cryptography~=3.4.7
+setuptools~=52.0.0
+boto3~=1.17.46
+pandas~=1.2.4

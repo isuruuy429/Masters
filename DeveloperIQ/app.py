@@ -1,36 +1,36 @@
 import json
 from flask import Flask, jsonify
-from create_json_files import write_files_once_a_day
-
+import boto3
 
 app = Flask(__name__)
+
+region = 'us-east-2'
+dynamodb = boto3.resource('dynamodb', region, aws_access_key_id=aws_access_key_id,
+                          aws_secret_access_key=aws_secret_access_key)
 
 
 @app.route('/commits', methods=['GET'])
 def get_commits():
-    f = open('resources/commits.json', )
-    data = json.load(f)
-    f.close()
-
-    return jsonify(data), 200
+    table = dynamodb.Table('commits')
+    response = table.scan()
+    count = response['Count']
+    return jsonify(count), 200
 
 
 @app.route('/events', methods=['GET'])
 def get_events():
-    f = open('resources/events.json', )
-    data = json.load(f)
-    f.close()
-
-    return jsonify(data), 200
+    table = dynamodb.Table('events')
+    response = table.scan()
+    count = response['Count']
+    return jsonify(count), 200
 
 
 @app.route('/pulls', methods=['GET'])
 def get_pull_requests():
-    f = open('resources/pulls.json', )
-    data = json.load(f)
-    f.close()
-
-    return jsonify(data), 200
+    table = dynamodb.Table('pulls')
+    response = table.scan()
+    count = response['Count']
+    return jsonify(count), 200
 
 
 if __name__ == '__main__':
