@@ -1,0 +1,6 @@
+pip~=21.1.1
+wheel~=0.36.2
+cryptography~=3.4.7
+setuptools~=52.0.0
+boto3~=1.17.46
+flask~=1.1.2
